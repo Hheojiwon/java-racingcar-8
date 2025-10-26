@@ -27,6 +27,7 @@ public class RacingController {
 
         playGame(game, attemptCount);
         announceWinners(game);
+        inputView.close();
     }
 
     private List<String> getCarNames() {
