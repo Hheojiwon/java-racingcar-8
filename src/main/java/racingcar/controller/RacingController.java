@@ -3,10 +3,9 @@ package racingcar.controller;
 import racingcar.domain.Cars;
 import racingcar.domain.RacingGame;
 import racingcar.domain.Car;
-import racingcar.exception.CarException;
-import racingcar.exception.ErrorMessage;
 import racingcar.util.InputParser;
 import racingcar.util.RandomNumberGeneratorImpl;
+import racingcar.validator.AttemptValidator;
 import racingcar.validator.NameValidator;
 import racingcar.view.InputView;
 import racingcar.view.OutputView;
@@ -44,22 +43,7 @@ public class RacingController {
     private int getAttemptCount() {
         outputView.printAttemptCountInputMessage();
         String input = inputView.readInput();
-        if (input == null || input.isEmpty()) {
-            throw new CarException(ErrorMessage.NULL_OR_EMPTY_INPUT);
-        }
-        return parseAndValidateAttemptCount(input);
-    }
-
-    private int parseAndValidateAttemptCount(String input) {
-        try {
-            int count = Integer.parseInt(input);
-            if (count <= 0) {
-                throw new CarException(ErrorMessage.TRY_COUNT_TOO_LOW);
-            }
-            return count;
-        } catch (NumberFormatException e) {
-            throw new CarException(ErrorMessage.INVALID_TRY_COUNT);
-        }
+        return AttemptValidator.validateAttemptCount(input);
     }
 
     private void playGame(RacingGame game, int attemptCount) {
