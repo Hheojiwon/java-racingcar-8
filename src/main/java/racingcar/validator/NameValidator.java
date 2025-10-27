@@ -8,7 +8,7 @@ public class NameValidator {
     private final static int NAME_MAX_LENGTH = 5;
 
     public static void validate(String name){
-        if (name == null){
+        if (name == null || name.isBlank()){
             throw new CarException(ErrorMessage.EMPTY_NAME);
         }
         if (!checkNameLength(name)){
